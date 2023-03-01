@@ -65,5 +65,16 @@ module.exports = defineConfig({
         symbolId: 'icon-[name]'
       })
       .end()
+  },
+  devServer: {
+    proxy: {
+      '/api': {
+        target: 'http://ihrm.itheima.net/prod-api/sys/',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api': ''
+        }
+      }
+    }
   }
 })

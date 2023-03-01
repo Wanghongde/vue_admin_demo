@@ -1,10 +1,5 @@
 <template>
   <div class="app">
-    <div>
-      <svg-icon icon="password" class="test"></svg-icon>
-      123132
-    </div>
-
     <router-view></router-view>
   </div>
 </template>
