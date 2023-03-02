@@ -57,7 +57,7 @@ const ruleFormRef = ref()
 const submitForm = () => {
   ruleFormRef.value.validate(async (valid, fields) => {
     if (valid) {
-      await store.dispatch('login', form)
+      await store.dispatch('app/login', form)
     } else {
       console.log('error submit!', fields)
       console.log(3, form)

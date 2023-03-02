@@ -1,7 +1,8 @@
 import { login as loginApi } from '@/api/login'
+import router from '@/router'
 
 export default {
-  namespace: true,
+  namespaced: true,
   state: {
     token: localStorage.getItem('token') || ''
   },
@@ -16,7 +17,7 @@ export default {
       return new Promise((resolve, reject) => {
         loginApi(data).then(result => {
           commit('setToken', result.data)
-          console.log(11, result)
+          router.replace('/index')
           resolve(result)
         })
       })

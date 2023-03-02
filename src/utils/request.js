@@ -6,6 +6,16 @@ const request = axios.create({
   timeout: 5000
 })
 
+request.interceptors.response.use(config => {
+  const token = localStorage.getItem('token')
+
+  if (token) {
+    config.headers.Authorization = token
+  }
+
+  return config
+})
+
 request.interceptors.response.use(response => {
   if (response.data.success) {
     ElMessage.success(response.data.message)
