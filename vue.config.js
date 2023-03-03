@@ -10,6 +10,7 @@ const webpack = require('webpack')
 
 module.exports = defineConfig({
   transpileDependencies: true,
+  lintOnSave: false,
   configureWebpack: {
     plugins: [
       AutoImport({

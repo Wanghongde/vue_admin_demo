@@ -1,27 +1,13 @@
 <template>
   <div class="common-layout">
     <el-container>
-      <el-aside width="300px">
-        <el-menu
-          active-text-color="#ffd04b"
-          background-color="#545c64"
-          class="el-menu-vertical-demo"
-          :default-active="defaultActive"
-          text-color="#fff"
-          router
-        >
-          <el-menu-item index="/home">
-            <el-icon><Menu /></el-icon>
-            <span>首页</span>
-          </el-menu-item>
-          <el-menu-item index="/user">
-            <el-icon><Menu /></el-icon>
-            <span>用户</span>
-          </el-menu-item>
-        </el-menu>
+      <el-aside :width="isCollapse ? '65px' : '210px'">
+        <Menu :isCollapse="isCollapse"/>
       </el-aside>
       <el-container>
-        <el-header>Header</el-header>
+        <el-header>
+          <Head @changeIsCollapse="changeIsCollapse"/>
+        </el-header>
         <el-main>
           <router-view></router-view>
         </el-main>
@@ -31,11 +17,15 @@
 </template>
 
 <script setup >
-import { Menu } from '@element-plus/icons-vue'
+import Menu from './components/menu.vue'
+import Head from './components/head.vue'
 import { ref } from 'vue'
 
-const defaultActive = ref(location.hash.slice(1))
+const isCollapse = ref(false)
 
+const changeIsCollapse = () => {
+  isCollapse.value = !isCollapse.value
+}
 </script>
 
 <script>
@@ -46,8 +36,17 @@ export default {
 
 <style scoped>
 .common-layout,
-.el-container,
-.el-menu {
+.el-container {
   height: 100vh;
+}
+
+.el-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 24px;
+  min-height: 60px;
+  line-height: 60px;
+  border-bottom: 2px solid #ccc;
 }
 </style>

@@ -2,7 +2,7 @@
   <div class="login-container">
     <el-form :model="form" class="login-container-form" :rules="rules" ref="ruleFormRef">
       <el-form-item class="login-container-form-item login-container-form-title">
-        <h2>admin 后台管理系统</h2>
+        <h2>{{ $t("message.LoginTitle") }}</h2>
       </el-form-item>
       <el-form-item class="login-container-form-item">
         <el-input v-model="form.mobile" :prefix-icon="User"/>

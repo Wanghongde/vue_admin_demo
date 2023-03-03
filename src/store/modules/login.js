@@ -1,5 +1,6 @@
 import { login as loginApi } from '@/api/login'
 import router from '@/router'
+import { ElMessage } from 'element-plus'
 
 export default {
   namespaced: true,
@@ -9,7 +10,15 @@ export default {
   mutations: {
     setToken (state, token) {
       state.token = token
+      localStorage.setItem('token-start-time', Date.now())
       localStorage.setItem('token', token)
+    },
+    logout (state) {
+      state.token = ''
+      localStorage.clear()
+      router.replace('/login')
+
+      ElMessage.success('成功退出')
     }
   },
   actions: {
@@ -17,10 +26,13 @@ export default {
       return new Promise((resolve, reject) => {
         loginApi(data).then(result => {
           commit('setToken', result.data)
-          router.replace('/index')
+          router.replace('/home')
           resolve(result)
         })
       })
+    },
+    logout ({ commit }) {
+      commit('logout')
     }
   }
 }
