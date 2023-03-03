@@ -13,7 +13,7 @@
         :prop="item.prop"
         :label="item.label">
         <template v-if="item.prop === 'mg_state'" #default="{row}">
-          <el-switch v-model="row.mg_state" />
+          <el-switch v-model="row.mg_state" @change="changeState(row)" />
         </template>
         <template v-if="item.prop === 'operate'" #default="{row}">
           <el-button type="primary" :icon="Edit" @click="putUserList(row)">编辑</el-button>
@@ -170,6 +170,12 @@ const putUserList = async row => {
   }
 
   dialogFormVisible.value = true
+}
+
+const changeState = async row => {
+  row.bool = row.mg_state
+
+  await putUserState(row)
 }
 </script>
 
