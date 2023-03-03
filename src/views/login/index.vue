@@ -5,7 +5,7 @@
         <h2>{{ $t("message.LoginTitle") }}</h2>
       </el-form-item>
       <el-form-item class="login-container-form-item">
-        <el-input v-model="form.mobile" :prefix-icon="User"/>
+        <el-input v-model="form.username" :prefix-icon="User"/>
       </el-form-item>
       <el-form-item class="login-container-form-item">
         <el-input v-model="form.password" :show-password="passwordFlag">
@@ -35,12 +35,12 @@ import { User, Hide } from '@element-plus/icons-vue'
 const store = useStore()
 
 const form = reactive({
-  mobile: '13800000002',
+  username: 'admin',
   password: '123456'
 })
 
 const rules = reactive({
-  mobile: [
+  username: [
     { required: true, message: '请填写用户名', trigger: 'blur' },
     { min: 3, max: 8, message: '用户名长度3-8位', trigger: 'blur' }
   ],

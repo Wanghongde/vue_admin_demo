@@ -70,7 +70,7 @@ module.exports = defineConfig({
   devServer: {
     proxy: {
       '/api': {
-        target: 'http://ihrm.itheima.net/prod-api/sys/',
+        target: 'http://vue-shop-api-t.itheima.net/api/private/v1',
         changeOrigin: true,
         pathRewrite: {
           '^/api': ''

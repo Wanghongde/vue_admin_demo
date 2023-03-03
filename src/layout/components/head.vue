@@ -9,6 +9,8 @@
   </div>
 
   <div class="left">
+    <svg-icon :icon="isFull ? 'exit-fullscreen' : 'fullscreen'" @click="toggleScreen"/>
+
     <el-dropdown @command="commandFn">
       <span class="el-dropdown-link">
         <svg-icon icon="language"/>
@@ -20,6 +22,7 @@
         </el-dropdown-menu>
       </template>
     </el-dropdown>
+
     <el-dropdown>
       <span class="el-dropdown-link">
         <img width="35" height="35" src="@/assets/19.jpg" alt="">
@@ -38,6 +41,7 @@ import { ref, computed, watch } from 'vue'
 import { useStore } from 'vuex'
 import { useI18n } from 'vue-i18n/dist/vue-i18n.cjs.js'
 import { useRoute, useRouter } from 'vue-router'
+import screenfull from 'screenfull'
 
 const route = useRoute()
 const router = useRouter()
@@ -45,6 +49,7 @@ const store = useStore()
 const i18n = useI18n()
 
 const isCollapse = ref(false)
+const isFull = ref(false)
 const emit = defineEmits(['changeIsCollapse'])
 
 const changeIsCollapse = () => {
@@ -68,11 +73,17 @@ const breadcrumb = ref([])
 
 watch(route, newVal => {
   breadcrumb.value = newVal.matched
-  console.log(breadcrumb.value )
 }, {
   deep: true,
   immediate: true
 })
+
+const toggleScreen = () => {
+  if (screenfull.isEnabled) {
+    isFull.value = !isFull.value
+	  screenfull.toggle()
+  }
+}
 </script>
 
 <script>
@@ -85,9 +96,16 @@ export default {
 .left{
   display: flex;
   align-items: center;
-  & div:first-child {
-    font-size: 35px;
-    margin-right: 20px;
+  & svg:first-child,
+  & div:nth-child(2) {
+    color: #333;
+    font-size: 30px;
+  }
+  & svg:first-child {
+    cursor: pointer;
+  }
+  & div:nth-child(2) {
+    margin: 0 20px;
   }
 }
 :deep(.el-dropdown-link) {

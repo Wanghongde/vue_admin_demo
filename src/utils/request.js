@@ -10,20 +10,20 @@ request.interceptors.request.use(config => {
   const token = localStorage.getItem('token')
 
   if (token) {
-    config.headers.Authorization = `Bearer ${token}`
+    config.headers.Authorization = token
   }
 
   return config
 })
 
 request.interceptors.response.use(response => {
-  if (response.data.success) {
-    ElMessage.success(response.data.message)
+  if (response.data.meta.status === 200 || response.data.meta.status === 201) {
+    ElMessage.success(response.data.meta.msg)
     return response.data
   } else {
-    ElMessage.error(response.data.message)
+    ElMessage.error(response.data.meta.msg)
 
-    return Promise.reject(new Error(response.data.message))
+    return Promise.reject(new Error(response.data.meta.msg))
   }
 }, err => Promise.reject(new Error(err)))
 

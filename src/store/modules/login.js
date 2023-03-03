@@ -8,7 +8,7 @@ export default {
     token: localStorage.getItem('token') || ''
   },
   mutations: {
-    setToken (state, token) {
+    setToken (state, {token}) {
       state.token = token
       localStorage.setItem('token-start-time', Date.now())
       localStorage.setItem('token', token)

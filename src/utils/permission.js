@@ -6,7 +6,6 @@ import checktime from '@/utils/checktime'
 const whiteList = ['/login']
 
 router.beforeEach((to, from, next) => {
-  console.log(888, to.path)
   if (store.getters.token) {
     if (checktime()) {
       store.dispatch('app/logout')
